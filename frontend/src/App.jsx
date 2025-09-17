@@ -19,7 +19,7 @@ function App() {
         setTodos(json.todos);
       })
       .catch((err) => {
-        console.error("❌ Failed to fetch:", err);
+        console.error("Failed to fetch:", err);
       });
   }, []);
 
