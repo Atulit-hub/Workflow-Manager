@@ -1,10 +1,13 @@
 const express = require("express");
+const signRouter = require("./sign.js");
 const app = express();
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 const {createTodo,updateTodo} = require("./zod");
 const {todo} = require("./db");
+
+app.use("/",signRouter);
 
 app.post("/todo",async function(req,res){
     const createPayload = req.body;
