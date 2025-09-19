@@ -8,7 +8,7 @@ const jwt_secret = "87654321";
 router.post("/signup",async function(req,res){
     const {name,password} = req.body;
     try{
-        const exist = await User.findOne({name});
+        const exist = await User.findOne({userName:name});
         if(exist){
             return res.status(411).json({msg:"user already exist"});
         }
