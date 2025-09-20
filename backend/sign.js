@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("./user.js");
 const router = express.Router();
 const jwt_secret = "87654321";
-
+//signup 
 router.post("/signup",async function(req,res){
     const {name,password} = req.body;
     try{
@@ -27,4 +27,25 @@ router.post("/signup",async function(req,res){
         res.status(500).json({msg:"something went wrong"});
     }
 })
+//signin
+router.post('/signin',async function(req,res){
+    const{name,password}=req.body;
+    try{
+        const user = await User.findOne({userName:name});
+        if(!user){
+            return res.status(411).json({msg:"user does not exist"});
+        }
+        const isMatch = await bcrypt.compare(password,user.password); 
+        if(!isMatch){
+            return res.status(401).json({msg:"wrong password"});
+        }
+        //return token
+        const token = jwt.sign({id:user._id},jwt_secret);
+        res.json({token});
+    }
+    catch(err){
+        res.status(411).json({msg:"something went wrong"+err});
+    }
+})
+
 module.exports=router;
