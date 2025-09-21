@@ -13,7 +13,7 @@ const todoSchema = mongoose.Schema({
     completed:Boolean,
     userId:{
         type: mongoose.Schema.Types.ObjectId, // link to User collection
-        ref: "User",                          // optional, for population
+        ref: "users",                          // optional, for population
         required: true
     }
 })
