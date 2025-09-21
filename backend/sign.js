@@ -47,5 +47,20 @@ router.post('/signin',async function(req,res){
         res.status(411).json({msg:"something went wrong"+err});
     }
 })
+//Middleware
+function middleWare(req,res,next){
+    const token  = req.headers["authorization"];
+    if(!token){
+        return res.status(411).json({msg:"request fail"});
+    }
+    try{
+        const decoded = jwt.verify(token.split(" ")[1],jwt_secret);
+        req.userId = decoded.id;
+        next();
+    }
+    catch(err){
+        res.status(411).json({msg:"something went wrong"+err});
+    }
+}
 
-module.exports=router;
+module.exports={router,middleWare};
