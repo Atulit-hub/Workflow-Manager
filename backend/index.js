@@ -12,7 +12,7 @@ app.use("/",signRouter);
 app.post("/todo",middleWare,async function(req,res){
     const createPayload = req.body;
     const parsePayload = createTodo.safeParse(createPayload);
-    if(!parsePayload){
+    if(!parsePayload.success){
         res.status(411).json({
             msg:"wrong input"
         })
