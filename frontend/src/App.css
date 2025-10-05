@@ -1,0 +1,60 @@
+body{
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Landing{
+    margin-top: 15rem;
+}
+button{
+    padding: 0.4rem;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 0.5rem;
+    /* margin-top: 20rem; */
+    width: 6rem;
+    border-radius: 1rem;
+    background-color: black;
+    color: bisque;
+    border: none;
+}
+.namebox1{
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    width: 12rem;
+}
+.passbox1{
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+     width: 12rem;
+}
+.namebox2{
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+     width: 12rem;
+}
+.passbox2{
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+     width: 12rem;
+}
+.show{
+    padding: 0.6rem;
+    margin-left: 10px;
+}
+.todos{
+    border: 4px solid black;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    padding: 5px;
+}
+.allTodos{
+    display: flex;
+    flex-wrap:wrap;
+    gap: 55px;
+    
+}
+
+
+

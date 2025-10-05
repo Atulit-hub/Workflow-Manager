@@ -2,8 +2,8 @@ const express = require("express");
 const {router:signRouter,middleWare} = require("./sign.js");
 const app = express();
 const cors = require("cors");
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 const {createTodo,updateTodo} = require("./zod");
 const {todo} = require("./db");
 
@@ -25,17 +25,37 @@ app.post("/todo",middleWare,async function(req,res){
         completed:false,
         userId:req.userId
     })
-    res.json({msg:"posted"})
+    return res.status(200).json({msg:"posted"})
 })
+
+
 app.get("/todos",middleWare,async function(req,res){
     const todos = await todo.find({userId:req.userId});
     res.json({todos});
 })
+
+app.delete("/del",middleWare,async function(req,res){
+    try{
+        const {id} = req.body;
+        const deletedTodo = await todo.findByIdAndDelete(id);
+        if(!deletedTodo){
+            return res.status(404).json({msg:"Todo not found"})
+        }
+        else{
+            return res.status(200).json({msg:"Todo deleted"});
+        }
+    }
+    catch(err){
+        return res.status(500).json({ message: "Server error" });
+    }
+
+})
+
 app.put("/completed",middleWare,async function(req,res){
     const updatePayload = req.body;
     const parsePayload = updateTodo.safeParse(updatePayload);
-    if(!parsePayload){
-        res.status(403).json({
+    if(!parsePayload.success){
+        return res.status(403).json({
             msg:"invalid id"
         });
     }
@@ -44,7 +64,7 @@ app.put("/completed",middleWare,async function(req,res){
     },{
         completed:true
     })
-    res.json({
+    return res.status(200).json({
         msg:"updated"
     })
 

@@ -26,7 +26,7 @@ router.post("/signup",async function(req,res){
 
         //genrate token
         const token  = jwt.sign({id:newUser._id},jwt_secret);
-        res.json({token});
+        return res.status(200).json({token});
     }
     catch(err){
         res.status(500).json({msg:"something went wrong"});
@@ -50,7 +50,7 @@ router.post('/signin',async function(req,res){
         }
         //return token
         const token = jwt.sign({id:user._id},jwt_secret);
-        res.json({token});
+        return res.status(200).json({token});
     }
     catch(err){
         res.status(411).json({msg:"something went wrong"+err});
